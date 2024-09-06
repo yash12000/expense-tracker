@@ -1,19 +1,24 @@
-import React from 'react';
-import { FaEdit, FaTrash } from 'react-icons/fa';
+import React from "react";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
-const ExpenseList = ({ expenses, deleteExpense, editExpense }) => {
-  return (
-    <div>
-      <h3>Recent Transactions</h3>
+const ExpenseList = ({ expenses, deleteExpense }) => (
+  <div className="expense-list">
+    <h3>Recent Transactions</h3>
+    <ul>
       {expenses.map((expense) => (
-        <div key={expense.id}>
-          <p>{expense.title} - ₹{expense.amount} - {expense.category} - {expense.date}</p>
-          <FaEdit onClick={() => editExpense(expense.id)} />
-          <FaTrash onClick={() => deleteExpense(expense.id)} />
-        </div>
+        <li key={expense.id}>
+          <span>{expense.name}</span>
+          <span>{expense.date}</span>
+          <span>₹{expense.amount}</span>
+          <FaEdit className="edit-icon" />
+          <FaTrashAlt
+            className="delete-icon"
+            onClick={() => deleteExpense(expense.id)}
+          />
+        </li>
       ))}
-    </div>
-  );
-};
+    </ul>
+  </div>
+);
 
 export default ExpenseList;

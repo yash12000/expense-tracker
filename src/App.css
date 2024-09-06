@@ -1,28 +1,52 @@
 .App {
   text-align: center;
   padding: 20px;
-}
-
-form {
-  margin: 20px 0;
-}
-
-input, select, button {
-  margin: 10px;
-  padding: 10px;
-  border-radius: 5px;
+  background-color: #2b2b2b;
+  color: white;
 }
 
 button {
-  background-color: #0088FE;
+  background-color: #00c49f;
   color: white;
   border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #0088fe;
 }
 
-h2, h3 {
-  margin: 10px 0;
+.wallet,
+.expense-trends,
+.expense-list {
+  margin: 20px auto;
+}
+
+h1,
+h3 {
+  color: #fff;
+}
+
+.expense-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.expense-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.edit-icon,
+.delete-icon {
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.expense-trends {
+  margin-top: 20px;
 }

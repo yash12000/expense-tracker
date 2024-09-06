@@ -1,37 +1,64 @@
-import React, { useState } from 'react';
-import { Modal } from 'react-modal';
-import { useSnackbar } from 'notistack';
+import React, { useState } from "react";
+import { useSnackbar } from "notistack";
 
 const ExpenseForm = ({ addExpense }) => {
-  const [title, setTitle] = useState('');
-  const [amount, setAmount] = useState('');
-  const [category, setCategory] = useState('Food');
-  const [date, setDate] = useState('');
+  const [name, setName] = useState("");
+  const [amount, setAmount] = useState("");
+  const [category, setCategory] = useState("Food");
   const { enqueueSnackbar } = useSnackbar();
+
+  const formatDate = (date) => {
+    return date.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title || !amount || !date) {
-      enqueueSnackbar('All fields are required', { variant: 'error' });
+
+    const expenseAmount = parseFloat(amount);
+    if (isNaN(expenseAmount) || expenseAmount <= 0 || !name.trim()) {
+      enqueueSnackbar("Please enter valid expense details", {
+        variant: "error",
+      });
       return;
     }
 
-    addExpense({ title, amount: parseFloat(amount), category, date });
-    setTitle('');
-    setAmount('');
-    setDate('');
+    const expense = {
+      id: Math.random(),
+      name,
+      date: formatDate(new Date()),
+      amount: expenseAmount,
+      category,
+    };
+
+    addExpense(expense);
+    enqueueSnackbar("Expense added!", { variant: "success" });
+    setName("");
+    setAmount("");
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-      <input type="number" placeholder="Amount" value={amount} onChange={(e) => setAmount(e.target.value)} required />
+      <input
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Expense Name"
+      />
+      <input
+        type="number"
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
+        placeholder="Amount"
+      />
       <select value={category} onChange={(e) => setCategory(e.target.value)}>
         <option value="Food">Food</option>
         <option value="Entertainment">Entertainment</option>
         <option value="Travel">Travel</option>
       </select>
-      <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
       <button type="submit">Add Expense</button>
     </form>
   );

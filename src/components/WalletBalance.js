@@ -1,11 +1,10 @@
-import React from 'react';
+import React from "react";
 
-const WalletBalance = ({ balance }) => {
-  return (
-    <div>
-      <h2>Wallet Balance: ₹{balance}</h2>
-    </div>
-  );
-};
+const WalletBalance = ({ balance }) => (
+  <div className="wallet">
+    <h3>Wallet Balance: ₹{balance}</h3>
+    <button className="add-income-btn">+ Add Income</button>
+  </div>
+);
 
 export default WalletBalance;
